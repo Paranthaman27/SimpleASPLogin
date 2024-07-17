@@ -1,0 +1,154 @@
+﻿@*@model SimpleASPLogin.Models.User*@
+@model SimpleASPLogin.Models.RegistrationViewModel
+@{
+    ViewData["Title"] = "Register Page";
+}
+
+
+@*<center>
+        <div class="col-4" style="text-align:left">
+            <h2>Register Hello</h2>
+
+            @using (Html.BeginForm("Register", "User", FormMethod.Post))
+            {
+                @Html.ValidationSummary(true)
+
+                <div>
+                    @Html.LabelFor(model => model.Email)
+                    @Html.TextBoxFor(model => model.Email)
+                    @Html.ValidationMessageFor(model => model.Email)
+                </div>
+
+                <div>
+                    @Html.LabelFor(model => model.Username)
+                    @Html.TextBoxFor(model => model.Username)
+                    @Html.ValidationMessageFor(model => model.Username)
+                </div>
+
+                <div>
+                    @Html.LabelFor(model => model.Password)
+                    @Html.PasswordFor(model => model.Password)
+                    @Html.ValidationMessageFor(model => model.Password)
+                </div>
+
+
+
+                <p> Hii There</p>
+                <input type="submit" value="Register" />
+            }
+        </div>
+    </center>*@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6 mt-5">
+                <h3 class="text-center" style="color: blueviolet;">Sign Up Hiii</h3>
+                <br>
+                <form asp-controller="User" asp-action="Register" method="post">
+                    <div class="form-grup">
+                        <label for="Username" style="color: blueviolet;">Username</label>
+                        <input asp-for="Username" class="form-control" id="Username" required>
+                        <span asp-validation-for="Username" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="Email" style="color: blueviolet;">Email</label>
+                        <input asp-for="Email"  type="email" Required class="form-control" id="Email" required>
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="Password" style="color: blueviolet;">Password</label>
+                        <input asp-for="Password" type="password" Required class="form-control" id="Password" required>
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="Role" style="color: blueviolet;">Role</label>
+                        <select class="form-select" id="Role">
+                            <option selected value="User">User</option>
+                            <option  value="Driver">Driver</option>
+                        </select>
+                        <span asp-validation-for="Role" class="text-danger"></span>
+                    </div>
+                    
+                    <button type="submit" class="btn" style="background-color: blueviolet;">Sign Up</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>
+
+
+
+
+
+@*<form asp-action="Register" method="post">
+        <div>
+            <label asp-for="Username"></label>
+            <input asp-for="Username" />
+            <span asp-validation-for="Username"></span>
+        </div>
+        <div>
+            <label asp-for="Email"></label>
+            <input asp-for="Email" />
+            <span asp-validation-for="Email"></span>
+        </div>
+        <div>
+            <label asp-for="Password"></label>
+            <input asp-for="Password" type="password" />
+            <span asp-validation-for="Password"></span>
+        </div>
+        <div>
+            <label asp-for="Role">Role</label>
+            <select asp-for="Role" id="roleSelect">
+                <option value="User">User</option>
+                <option value="Driver">Driver</option>
+            </select>
+            <span asp-validation-for="Role"></span>
+        </div>
+
+        <div id="driverFields" style="display: none;">
+            <div>
+                <label asp-for="D_Name"></label>
+                <input asp-for="D_Name" />
+                <span asp-validation-for="D_Name"></span>
+            </div>
+            <div>
+                <label asp-for="D_DOB"></label>
+                <input asp-for="D_DOB" type="date" />
+                <span asp-validation-for="D_DOB"></span>
+            </div>
+            <div>
+                <label asp-for="DAddress"></label>
+                <input asp-for="DAddress" />
+                <span asp-validation-for="DAddress"></span>
+            </div>
+            <div>
+                <label asp-for="D_Pno"></label>
+                <input asp-for="D_Pno" />
+                <span asp-validation-for="D_Pno"></span>
+            </div>
+        </div>
+
+        <button type="submit">Register</button>
+    </form>
+
+    @section Scripts {
+        <script>document.getElementById('roleSelect').addEventListener('change', function () {
+                var driverFields = document.getElementById('driverFields');
+                if (this.value === 'Driver') {
+                    driverFields.style.display = 'block';
+                } else {
+                    driverFields.style.display = 'none';
+                }
+            });</script>
+    }*@

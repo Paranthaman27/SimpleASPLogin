@@ -1,0 +1,81 @@
+﻿@model SimpleASPLogin.Models.Driver
+@{
+    ViewData["Title"] = "Driver Page";
+}
+<div class="container col-md-6 mt-5">
+    <p>Create</p>
+
+    @if (ViewBag.Message != null)
+    {
+        <p class="alert alert-success" role="alert">
+            @ViewBag.Message
+        </p>
+    }
+
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <p class="form-horizontal">
+        <p>Employee</p>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <p class="form-group">
+            @Html.LabelFor(model => model.DriverEmail, htmlAttributes: new { @class = "control-label col-md-2" })
+        <p class="col-md-10">
+            @Html.EditorFor(model => model.DriverEmail, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.DriverEmail, "", new { @class = "text-danger" })
+        </p>
+        </p>
+        <p class="form-group">
+            @Html.LabelFor(model => model.D_Name, htmlAttributes: new { @class = "control-label col-md-2" })
+        <p class="col-md-10">
+            @Html.EditorFor(model => model.D_Name, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.D_Name, "", new { @class = "text-danger" })
+        </p>
+        </p>
+
+        <p class="form-group">
+            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+        <p class="col-md-10">
+            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+        </p>
+        </p>
+
+
+
+
+        <p class="form-group">
+            @Html.LabelFor(model => model.D_Pno, htmlAttributes: new { @class = "control-label col-md-2" })
+        <p class="col-md-10">
+            @Html.EditorFor(model => model.D_Pno, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.D_Pno, "", new { @class = "text-danger" })
+        </p>
+        </p>
+
+        <p class="form-group">
+            @Html.LabelFor(model => model.DAddress, htmlAttributes: new { @class = "control-label col-md-2" })
+        <p class="col-md-10">
+            @Html.EditorFor(model => model.DAddress, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.DAddress, "", new { @class = "text-danger" })
+        </p>
+        </p>
+
+        <p class="form-group">
+        <p class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" asp-controller="Driver" asp-action="Driver" />
+        </p>
+        </p>
+        </p>
+    }
+
+    <p>
+        @Html.ActionLink("Back to List", "DIndex")
+    </p>
+
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

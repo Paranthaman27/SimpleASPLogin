@@ -1,0 +1,29 @@
+﻿@model SimpleASPLogin.Models.Booking
+
+@{
+    ViewData["Title"] = "Edit Booking";
+}
+
+<div class="container">
+    <h2>Edit Booking</h2>
+    <form asp-action="EditBooking">
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            <label asp-for="Vehicle_Type" class="control-label"></label>
+            <input asp-for="Vehicle_Type" class="form-control" readonly />
+            <span asp-validation-for="Vehicle_Type" class="text-danger"></span>
+        </div>
+        <!-- Repeat for other fields as necessary -->
+        <div class="form-group">
+            <label asp-for="Distance" class="control-label"></label>
+            <input asp-for="Distance" class="form-control" />
+            <span asp-validation-for="Distance" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="RentalDuration" class="control-label"></label>
+            <input asp-for="RentalDuration" class="form-control" />
+            <span asp-validation-for="RentalDuration" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+</div>

@@ -1,0 +1,164 @@
+﻿@*@model SimpleASPLogin.Models.Rental
+
+    @{
+        ViewData["Title"] = "Enter Rental Details";
+    }
+
+    <h2>Enter Rental Details</h2>
+
+    <form asp-action="EnterRental">
+        <div class="form-group">
+            <label asp-for="Date"></label>
+            <input asp-for="Date" class="form-control" />
+            <span asp-validation-for="Date" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="IsGST"></label>
+            <input asp-for="IsGST" class="form-control" type="checkbox" />
+            <span asp-validation-for="IsGST" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="CompanyName"></label>
+            <input asp-for="CompanyName" class="form-control" />
+            <span asp-validation-for="CompanyName" class="text-danger"></span>
+        </div>
+        @if (Model.IsGST)
+        {
+            <div class="form-group">
+                <label asp-for="CompanyId">Select Company</label>
+                <select asp-for="CompanyId" class="form-control" asp-items="@(new SelectList(ViewBag.Company, "CompanyId", "CompanyName"))"></select>
+                <span asp-validation-for="CompanyId" class="text-danger"></span>
+            </div>
+        }
+        <div class="form-group">
+            <label asp-for="VehicleId">Select Vehicle</label>
+            <select asp-for="VehicleId" class="form-control" asp-items="@(new SelectList(ViewBag.Vehicles, "VehicleId", "VehicleName"))"></select>
+            <span asp-validation-for="VehicleId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="From"></label>
+            <input asp-for="From" class="form-control" />
+            <span asp-validation-for="From" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="To"></label>
+            <input asp-for="To" class="form-control" />
+            <span asp-validation-for="To" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Amount"></label>
+            <input asp-for="Amount" class="form-control" />
+            <span asp-validation-for="Amount" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="StartKm"></label>
+            <input asp-for="StartKm" class="form-control" />
+            <span asp-validation-for="StartKm" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="EndKm"></label>
+            <input asp-for="EndKm" class="form-control" />
+            <span asp-validation-for="EndKm" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="DieselCost"></label>
+            <input asp-for="DieselCost" class="form-control" />
+            <span asp-validation-for="DieselCost" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>*@
+
+
+@model SimpleASPLogin.Models.Rental
+
+@{
+    ViewData["Title"] = "Enter Rental Details";
+    var vehicles = ViewBag.Vehicles as List<SimpleASPLogin.Models.Vehicle>;
+}
+<div class="container col-md-6 mt-5">
+    <h2>Enter Rental Details</h2>
+
+    <form asp-action="EnterRental" method="post">
+        <!-- Other form fields -->
+        <div>
+            <label asp-for="Email" class="control-label"></label>
+            <input asp-for="Email" class="form-control" readonly />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <div>
+            <label asp-for="Date" class="control-label"></label>
+            <input asp-for="Date" class="form-control" />
+            <span asp-validation-for="Date" class="text-danger"></span>
+        </div>
+
+        @if (Model.IsGST)
+        {
+            <div>
+                <label asp-for="CompanyId" class="control-label"></label>
+                <input asp-for="CompanyId" class="form-control" />
+                <span asp-validation-for="CompanyId" class="text-danger"></span>
+            </div>
+        }
+        else
+        {
+            <div>
+                <label asp-for="CompanyName" class="control-label"></label>
+                <input asp-for="CompanyName" class="form-control" />
+                <span asp-validation-for="CompanyName" class="text-danger"></span>
+            </div>
+        }
+
+        <div class="form-group">
+
+
+            <label for="Vehicle_Type">Vehicle Type</label>
+            <select class="form-control" id="Vehicle_Type" name="Vehicle_Type" onchange="displayVehicleId()">
+                @foreach (var vehicle in vehicles)
+                {
+                    <option value="@vehicle.Vehicle_id" data-id="@vehicle.Vehicle_id">@vehicle.Vehicle_Type (ID: @vehicle.Vehicle_id)</option>
+                }
+            </select>
+            <span asp-validation-for="VehicleId" class="text-danger"></span>
+        </div>
+
+        <!-- Other form fields for From, To, Amount, StartKm, EndKm, DieselCost -->
+        <div>
+            <label asp-for="From" class="control-label"></label>
+            <input asp-for="From" class="form-control" />
+            <span asp-validation-for="From" class="text-danger"></span>
+        </div>
+
+        <div>
+            <label asp-for="To" class="control-label"></label>
+            <input asp-for="To" class="form-control" />
+            <span asp-validation-for="To" class="text-danger"></span>
+        </div>
+
+        <div>
+            <label asp-for="Amount" class="control-label"></label>
+            <input asp-for="Amount" class="form-control" />
+            <span asp-validation-for="Amount" class="text-danger"></span>
+        </div>
+
+        <div>
+            <label asp-for="StartKm" class="control-label"></label>
+            <input asp-for="StartKm" class="form-control" />
+            <span asp-validation-for="StartKm" class="text-danger"></span>
+        </div>
+
+        <div>
+            <label asp-for="EndKm" class="control-label"></label>
+            <input asp-for="EndKm" class="form-control" />
+            <span asp-validation-for="EndKm" class="text-danger"></span>
+        </div>
+
+        <div>
+            <label asp-for="DieselCost" class="control-label"></label>
+            <input asp-for="DieselCost" class="form-control" />
+            <span asp-validation-for="DieselCost" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>

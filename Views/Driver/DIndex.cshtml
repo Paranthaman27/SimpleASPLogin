@@ -1,0 +1,89 @@
+﻿@model IEnumerable<SimpleASPLogin.Models.Driver>
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    ViewData["Title"] = "Drivers";
+}
+@{
+    var role = HttpContextAccessor.HttpContext.Session.GetString("Role");
+}
+
+<div class="container">
+    <h1>Drivers</h1>
+    @if (role.Equals("Admin"))
+        {
+        <p>
+            <a asp-action="Driver" asp-controller="Driver" class="btn btn-primary">Create New</a>
+        </p>
+        }
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>
+                            Driver Name
+                        </th>
+                        <th>
+                            Phone Number
+                        </th>
+                        <th>
+                            Address
+                        </th>
+                        @if (role.Equals("Driver") || role.Equals("Admin"))
+                        {
+                            <th>
+                                CRUD
+                            </th>
+                        }
+
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.D_Name)
+                            </td>
+
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.D_Pno)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DAddress)
+                            </td>
+                            <td>
+                                @if (role != null)
+                                {
+                                    if (role.Equals(""))
+                                    {
+                                        <a id="Edit" class="btn btn-primary" style="display: block;">Edit</a>
+                                        <a id=" Delete" class="btn btn-danger" style="display: block;">Delete</a>
+                                    }
+                                    else if (role.Equals("Admin"))
+                                    {
+                                        <a asp-action="Edit" asp-route-Email="@item.DriverEmail" id="Edit" class="btn btn-primary" style="display: none;">Edit</a>
+                                        <a asp-action="Delete" asp-route-Email="@item.DriverEmail" id=" Delete" class="btn btn-danger" style="display: block;">Delete</a>
+                                    }
+                                    else if (role.Equals("Driver"))
+                                    {
+                                        <a asp-action="Edit" asp-route-Email="@item.DriverEmail" id="Edit" class="btn btn-primary" style="display: block;">Edit</a>
+                                        <a asp-action="Delete" asp-route-Email="@item.DriverEmail" id=" Delete" class="btn btn-danger" style="display: none;">Delete</a>
+                                    }
+                                }
+                                else
+                                {
+                                    <a id="Edit" class="btn btn-primary" style="display: block;">Edit</a>
+                                    <a id="Delete" class="btn btn-danger" style="display: block;">Delete</a>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

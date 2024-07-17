@@ -1,0 +1,134 @@
+﻿@*@model SimpleASPLogin.Models.Invoice
+
+@{
+    ViewData["Title"] = "Create Invoice";
+    var company = ViewBag.Company as List<SimpleASPLogin.Models.Company>;
+}
+
+<div class="container">
+    <h2 class="mt-4">Create Invoice</h2>
+    <form asp-action="CreateInvoice" method="post">
+        <div class="form-group">
+            <label asp-for="CompanyName">Company Name</label>
+            <select asp-for="CompanyName" class="form-control" onchange="displayCompanyDetails()">
+                <option value="" selected disabled>Select Company</option>
+                @foreach (var company in ViewBag.Company)
+                {
+                    <option value="@company.Name" data-address="@company.Address" data-gstin="@company.GSTIN">@company.Name</option>
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            <label asp-for="CompanyAddress">Company Address</label>
+            <input asp-for="CompanyAddress" class="form-control" readonly />
+        </div>
+        <div class="form-group">
+            <label asp-for="CompanyGSTIN">Company GSTIN</label>
+            <input asp-for="CompanyGSTIN" class="form-control" readonly />
+        </div>
+        <div class="form-group">
+            <label asp-for="InvoiceDate">Invoice Date</label>
+            <input asp-for="InvoiceDate" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="InvoiceNumber">Invoice Number</label>
+            <input asp-for="InvoiceNumber" class="form-control" />
+        </div>
+
+        <h3>Rental Entries</h3>
+        <table class="table invoice-table">
+            <thead>
+                <tr>
+                    <th>Sr No.</th>
+                    <th>Date</th>
+                    <th>Vehicle No</th>
+                    <th>Particulars</th>
+                    <th>Hire</th>
+                </tr>
+            </thead>
+            <tbody id="rentalEntries">
+                <tr>
+                    <td>1</td>
+                    <td><input type="date" class="form-control" name="RentalEntries[0].Date" /></td>
+                    <td><input type="text" class="form-control" name="RentalEntries[0].VehicleNo" /></td>
+                    <td><input type="text" class="form-control" name="RentalEntries[0].Particulars" /></td>
+                    <td><input type="number" class="form-control hire-amount" name="RentalEntries[0].Hire" /></td>
+                </tr>
+            </tbody>
+        </table>
+        <button type="button" class="btn btn-secondary" onclick="addRentalEntry()">Add Entry</button>
+
+        <h3>Summary</h3>
+        <div class="form-group">
+            <label asp-for="SubTotal">Sub Total</label>
+            <input asp-for="SubTotal" class="form-control" readonly />
+        </div>
+        <div class="form-group">
+            <label asp-for="CGST">CGST 6%</label>
+            <input asp-for="CGST" class="form-control" readonly />
+        </div>
+        <div class="form-group">
+            <label asp-for="SGST">SGST 6%</label>
+            <input asp-for="SGST" class="form-control" readonly />
+        </div>
+        <div class="form-group">
+            <label asp-for="Total">Total</label>
+            <input asp-for="Total" class="form-control" readonly />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit Invoice</button>
+    </form>
+</div>
+
+<script>function displayCompanyDetails() {
+        var select = document.getElementById("CompanyName");
+        var selectedOption = select.options[select.selectedIndex];
+        var address = selectedOption.getAttribute("data-address");
+        var gstin = selectedOption.getAttribute("data-gstin");
+        document.getElementById("CompanyAddress").value = address;
+        document.getElementById("CompanyGSTIN").value = gstin;
+    }
+
+    function addRentalEntry() {
+        var rentalEntries = document.getElementById("rentalEntries");
+        var rowCount = rentalEntries.rows.length;
+        if (rowCount >= 4) {
+            alert("Maximum 4 entries allowed.");
+            return;
+        }
+
+        var newRow = rentalEntries.insertRow();
+        newRow.innerHTML = `
+            <td>${rowCount + 1}</td>
+            <td><input type="date" class="form-control" name="RentalEntries[${rowCount}].Date" /></td>
+            <td><input type="text" class="form-control" name="RentalEntries[${rowCount}].VehicleNo" /></td>
+            <td><input type="text" class="form-control" name="RentalEntries[${rowCount}].Particulars" /></td>
+            <td><input type="number" class="form-control hire-amount" name="RentalEntries[${rowCount}].Hire" /></td>
+        `;
+
+        calculateTotals();
+    }
+
+    document.addEventListener("input", function(event) {
+        if (event.target.classList.contains("hire-amount")) {
+            calculateTotals();
+        }
+    });
+
+    function calculateTotals() {
+        var hireAmounts = document.getElementsByClassName("hire-amount");
+        var subTotal = 0;
+        for (var i = 0; i < hireAmounts.length; i++) {
+            subTotal += parseFloat(hireAmounts[i].value) || 0;
+        }
+
+        var cgst = subTotal * 0.06;
+        var sgst = subTotal * 0.06;
+        var total = subTotal + cgst + sgst;
+
+        document.getElementById("SubTotal").value = subTotal.toFixed(2);
+        document.getElementById("CGST").value = cgst.toFixed(2);
+        document.getElementById("SGST").value = sgst.toFixed(2);
+        document.getElementById("Total").value = total.toFixed(2);
+    }</script>*@
+

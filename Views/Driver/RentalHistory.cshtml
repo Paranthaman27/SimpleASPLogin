@@ -1,0 +1,43 @@
+﻿@model IEnumerable<SimpleASPLogin.Models.Rental>
+
+@{
+    ViewData["Title"] = "Rental History";
+}
+
+<h2>Rental History</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Company Name</th>
+            <th>Vehicle ID</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Amount</th>
+            <th>Start Km</th>
+            <th>End Km</th>
+            <th>Diesel Cost</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var rental in Model)
+        {
+            <tr>
+                <td>@rental.Date.ToShortDateString()</td>
+                <td>@rental.CompanyName</td>
+                <td>@rental.VehicleId</td>
+                <td>@rental.From</td>
+                <td>@rental.To</td>
+                <td>@rental.Amount</td>
+                <td>@rental.StartKm</td>
+                <td>@rental.EndKm</td>
+                <td>@rental.DieselCost</td>
+                <td>
+                    <a asp-controller="Driver" asp-action="EditRental" asp-route-id="@rental.RentalId" class="btn btn-primary">Edit</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

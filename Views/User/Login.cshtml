@@ -1,0 +1,132 @@
+﻿@model SimpleASPLogin.Models.Userdto
+
+@{
+    ViewData["Title"] = "Login Page";
+}
+
+
+@*<center>
+        <div class="col-4" style="text-align:left">
+
+            <h2>Login</h2>
+
+            @using (Html.BeginForm("Login", "User", FormMethod.Post))
+            {
+                @Html.ValidationSummary(true)
+
+                <div>
+                    @Html.LabelFor(model => model.Email)
+                    @Html.TextBoxFor(model => model.Email)
+                    @Html.ValidationMessageFor(model => model.Email)
+                </div>
+
+                <div>
+                    @Html.LabelFor(model => model.Password)
+                    @Html.PasswordFor(model => model.Password)
+                    @Html.ValidationMessageFor(model => model.Password)
+                </div>
+
+                <input type="submit" value="Login" />
+
+            }
+
+        </div>
+    </center>
+
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }*@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6 mt-5">
+                <div class="card p-4" style="border-radius: 20px;">
+                    <div class="">
+                        <h3 style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Welcome Back!!</h3><br>
+                        <form asp-controller="User" asp-action="Login" method="post">
+                            <div class="form-group">
+                                <label for="Email">Email</label>
+                                <input type="email" Required class="form-control" id="Email" name="Email" placeholder="Email">
+                                <span id="Email-error" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="Password">Password</label>
+                                <input type="password" Required class="form-control" id="Password" name="Password" placeholder="Password">
+                                <span id="Password-error" class="text-danger"></span>
+                            </div>
+
+
+
+                            <button type="submit" class="btn btn-block mt-3" style="background-color: blueviolet;">Sign in</button>
+                        </form>
+                        <br>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mt-5">
+                <img class="p-2" src="/Img/pngwing.com.png" alt="" height="50%">
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>// Optional: Add JavaScript for client-side validation or interactivity</script>
+</body>
+</html>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var message = '@TempData["PopupMessage1"]';
+            if (message) {
+                alert(message);
+            }
+        });
+    </script>
+}
+
+
+@*@section Scripts {
+        <script>document.getElementById('loginForm').addEventListener('submit', function (e) {
+                var isValid = true;
+                var id = document.getElementById('id').value.trim();
+                var password = document.getElementById('password').value.trim();
+
+                // Clear previous error messages
+                document.getElementById('idError').innerText = '';
+                document.getElementById('passwordError').innerText = '';
+
+                // Validate ID
+                if (id === '') {
+                    isValid = false;
+                    document.getElementById('idError').innerText = 'ID is required.';
+                }
+
+                // Validate Password
+                if (password === '') {
+                    isValid = false;
+                    document.getElementById('passwordError').innerText = 'Password is required.';
+                }
+
+                // If not valid, prevent form submission
+                if (!isValid) {
+                    e.preventDefault();
+                }
+            });</script>
+    }*@

@@ -1,0 +1,36 @@
+﻿@model SimpleASPLogin.Models.Vehicle
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit Vehicle</h1>
+
+<div class="container">
+    <form asp-action="Edit">
+        <input type="hidden" asp-for="Vehicle_id" />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Vehicle_Name" class="control-label"></label>
+            <input asp-for="Vehicle_Name" class="form-control" />
+            <span asp-validation-for="Vehicle_Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Vehicle_Reg" class="control-label"></label>
+            <input asp-for="Vehicle_Reg" class="form-control" />
+            <span asp-validation-for="Vehicle_Reg" class="text-danger"></span>
+        </div>
+        <input type="hidden" asp-for="Vehicle_id" />
+        <div class="form-group">
+            <label asp-for="Vehicle_Type"></label>
+            <input asp-for="Vehicle_Type" class="form-control" />
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Save" class="btn btn-primary" />
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

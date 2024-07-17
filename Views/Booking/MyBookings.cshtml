@@ -1,0 +1,181 @@
+﻿@*@model IEnumerable<SimpleASPLogin.Models.Booking>
+
+    @{
+        ViewData["Title"] = "My Bookings";
+        var bookings = ViewBag.Bookings as List<SimpleASPLogin.Models.Booking>;
+    }
+    <div class="container">
+        <h2>My Bookings</h2>
+
+        @if (!bookings.Any())
+        {
+            <p>You have no bookings.</p>
+        }
+        else
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Vehicle Type</th>
+                        <th>Booking Date</th>
+                        <th>Booking Time</th>
+                        <th>Pickup Location</th>
+                        <th>Delivery Location</th>
+                        <th>Rental Duration</th>
+                        <th>Distance</th>
+                        <th>Total Price</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var booking in bookings)
+                    {
+                        <tr>
+                            <td>@booking.Vehicle_Type</td>
+                            <td>@booking.BookingDate.ToShortDateString()</td>
+                            <td>@booking.BookingTime.Hours:@booking.BookingTime.Minutes.ToString("D2")</td>
+                            <td>@booking.PickupLocation</td>
+                            <td>@booking.DeliveryLocation</td>
+                            <td>@booking.RentalDuration</td>
+                            <td>@booking.Distance</td>
+                            <td>₹@booking.TotalPrice</td>
+                            <td>
+                                <a asp-controller="Booking" asp-action="EditBooking" asp-route-id="@booking.BookingId" class="btn btn-warning">Edit</a>
+                                <a asp-controller="Booking" asp-action="CancelBooking" asp-route-id="@booking.BookingId" class="btn btn-danger">Cancel</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>*@
+
+@model IEnumerable<SimpleASPLogin.Models.Booking>
+
+@{
+    ViewData["Title"] = "My Bookings";
+    var history = ViewBag.History as List<SimpleASPLogin.Models.Booking>;
+    var pending = ViewBag.Pending as List<SimpleASPLogin.Models.Booking>;
+}
+
+<div class="container my-5">
+    <div class="card">
+        <div class="card-header bg-light">
+            <ul class="nav nav-tabs fw-bold">
+                <li class="nav-item">
+                    <a class="nav-link active" id="history-tab" onclick="showTab('history')">History</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="pending-tab" onclick="showTab('pending')">Pending</a>
+                </li>
+            </ul>
+        </div>
+        <div class="card-body">
+            <div id="history" class="tab-content">
+                <h2>History</h2>
+                @if (history == null || !history.Any())
+                {
+                    <p>No bookings found.</p>
+                }
+                else
+                {
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Vehicle Type</th>
+                                <th>Booking Date</th>
+                                <th>Booking Time</th>
+                                <th>Pickup Location</th>
+                                <th>Delivery Location</th>
+                                <th>Rental Duration</th>
+                                <th>Distance</th>
+                                <th>Total Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var booking in history)
+                            {
+                                <tr>
+                                    <td>@booking.Vehicle_Type</td>
+                                    <td>@booking.BookingDate.ToShortDateString()</td>
+                                    <td>@booking.BookingTime.Hours:@booking.BookingTime.Minutes.ToString("D2")</td>
+                                    <td>@booking.PickupLocation</td>
+                                    <td>@booking.DeliveryLocation</td>
+                                    <td>@booking.RentalDuration</td>
+                                    <td>@booking.Distance</td>
+                                    <td>₹@booking.TotalPrice</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+            </div>
+            <div id="pending" class="tab-content" style="display:none;">
+                <h2>Pending</h2>
+                @if (pending == null || !pending.Any())
+                {
+                    <p>No bookings found.</p>
+                }
+                else
+                {
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Vehicle Type</th>
+                                <th>Booking Date</th>
+                                <th>Booking Time</th>
+                                <th>Pickup Location</th>
+                                <th>Delivery Location</th>
+                                <th>Rental Duration</th>
+                                <th>Distance</th>
+                                <th>Total Price</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var booking in pending)
+                            {
+                                <tr>
+                                    <td>@booking.Vehicle_Type</td>
+                                    <td>@booking.BookingDate.ToShortDateString()</td>
+                                    <td>@booking.BookingTime.Hours:@booking.BookingTime.Minutes.ToString("D2")</td>
+                                    <td>@booking.PickupLocation</td>
+                                    <td>@booking.DeliveryLocation</td>
+                                    <td>@booking.RentalDuration</td>
+                                    <td>@booking.Distance</td>
+                                    <td>₹@booking.TotalPrice</td>
+                                    <td>
+                                        <a asp-controller="Booking" asp-action="EditBooking" asp-route-id="@booking.BookingId" class="btn btn-warning">Edit</a>
+                                        <a asp-controller="Booking" asp-action="CancelBooking" asp-route-id="@booking.BookingId" class="btn btn-danger">Cancel</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>function showTab(tabName) {
+        var tabs = document.getElementsByClassName('tab-content');
+        for (var i = 0; i < tabs.length; i++) {
+            tabs[i].style.display = 'none';
+        }
+        document.getElementById(tabName).style.display = 'block';
+
+        var navLinks = document.getElementsByClassName('nav-link');
+        for (var i = 0; i < navLinks.length; i++) {
+            navLinks[i].classList.remove('active');
+        }
+        if (tabName === 'history') {
+            document.getElementById('history-tab').classList.add('active');
+        } else if (tabName === 'pending') {
+            document.getElementById('pending-tab').classList.add('active');
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        showTab('history');
+    });</script>

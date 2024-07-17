@@ -1,0 +1,85 @@
+﻿@*@model SimpleASPLogin.Models.Driver
+
+    @{
+        ViewData["Title"] = "Edit Driver";
+    }
+    <div class="container">
+        <h1>Edit Driver</h1>
+
+        <hr />
+        <div class="row">
+            <div class="col-md-4">
+                <form asp-action="Edit">
+                    <input type="hidden" asp-for="Email" />
+                    <div class="form-group">
+                        <label asp-for="D_Name" class="control-label"></label>
+                        <input asp-for="D_Name" class="form-control" />
+                        <span asp-validation-for="D_Name" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="D_Pno" class="control-label"></label>
+                        <input asp-for="D_Pno" class="form-control" />
+                        <span asp-validation-for="D_Pno" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="DAddress" class="control-label"></label>
+                        <input asp-for="DAddress" class="form-control" />
+                        <span asp-validation-for="DAddress" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div>
+            <a asp-action="Index">Back to List</a>
+        </div>
+
+    </div>
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }*@
+
+
+
+@model SimpleASPLogin.Models.Driver
+
+@{
+    ViewData["Title"] = "Edit Driver";
+}
+
+<h1>Edit Driver</h1>
+
+<div class="container col-md-6 mt-5">
+    <form asp-action="Edit">
+        <input type="hidden" asp-for="DriverEmail" />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="D_Name" class="control-label"></label>
+            <input asp-for="D_Name" class="form-control" />
+            <span asp-validation-for="D_Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="D_Pno" class="control-label"></label>
+            <input asp-for="D_Pno" class="form-control" />
+            <span asp-validation-for="D_Pno" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="DAddress" class="control-label"></label>
+            <input asp-for="DAddress" class="form-control" />
+            <span asp-validation-for="DAddress" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Save" class="btn btn-primary" />
+        </div>
+    </form>
+    <div>
+        <a asp-action="DIndex">Back to List</a>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,17 @@
+﻿@model Booking
+
+@{
+    ViewData["Title"] = "Booking Success";
+}
+<div class="container">
+    <h2>Booking Success</h2>
+    <p>Your booking has been successfully submitted. Thank you!</p>
+    <p>Vehicle Type: @Model.Vehicle_Type</p>
+    <p>Booking Date: @Model.BookingDate.ToShortDateString()</p>
+    <p>Booking Time: @Model.BookingTime.Hours:@Model.BookingTime.Minutes.ToString("D2")</p>
+    <p>Pickup Location: @Model.PickupLocation</p>
+    <p>Delivery Location: @Model.DeliveryLocation</p>
+    <p>Rental Duration: @Model.RentalDuration hours</p>
+    <p>Distance: @Model.Distance kilometers</p>
+    <p>Total Price: ₹@Model.TotalPrice</p>
+</div>
